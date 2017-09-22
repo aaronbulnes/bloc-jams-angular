@@ -11,6 +11,7 @@ $stateProvider
          .state('landing', {
              url: '/',
              controller: 'LandingCtrl as landing',
+             controller: 'Album as album'
              controller: 'CollectionCtrl as collection',
              templateUrl: '/templates/landing.html'
 
