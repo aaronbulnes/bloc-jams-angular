@@ -15,9 +15,25 @@ body.landing {
     position: absolute;
     top: 40%;
     opacity: 1;
+<<<<<<< HEAD
     width: 100%;
     text-align: center;
     font-size: 2rem;
+=======
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+    -webkit-transition-delay: 0.2s;
+    -moz-transition-delay: 0.2s;
+    transition-delay: 0.2s;
+    width: 100%;
+    text-align: center;
+    font-size: 4rem;
+>>>>>>> checkpoint-4
     font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 0.5rem;
@@ -45,4 +61,8 @@ body.landing {
 .ion-iphone {
     color: rgb(233,50,117);
     font-size: 5rem;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> checkpoint-4

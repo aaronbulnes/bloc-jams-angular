@@ -1,6 +1,7 @@
 
 (function() {
 <<<<<<< HEAD
+<<<<<<< HEAD
      function config($stateProvider, $locationProvider) {
 
   $locationProvider
@@ -24,6 +25,8 @@ $stateProvider
          .config(config);
  })();
 =======
+=======
+>>>>>>> checkpoint-4
     function config($stateProvider, $locationProvider) {
         $locationProvider
             .html5Mode({
@@ -38,10 +41,13 @@ $stateProvider
             .state('album', {
                 url: '/album',
                 templateUrl: '/templates/album.html'
+<<<<<<< HEAD
             })
             .state('collection', {
                 url: '/collection',
                 templateUrl: '/templates/collection.html'
+=======
+>>>>>>> checkpoint-4
             });
     }
     
@@ -49,4 +55,7 @@ $stateProvider
         .module('blocJams', ['ui.router'])
         .config(config);
 })();
+<<<<<<< HEAD
 >>>>>>> checkpoint-3
+=======
+>>>>>>> checkpoint-4
