@@ -1,5 +1,6 @@
 <section class="album-covers container clearfix">
 <<<<<<< HEAD
+<<<<<<< HEAD
      <div class="collection-album-container column fourth" ng-repeat="album in collection.albums">
         <img src="{{ album.albumArtUrl }}"> 
          <div class="collection-album-info caption">
@@ -23,9 +24,23 @@
                 <a ui-sref="album">Pablo Picasso</a>
                 <br/>
                 X songs
+=======
+    <div class="collection-album-container column fourth" ng-repeat="album in collection.albums">
+        <img src="{{ album.albumArtUrl }}">
+        <div class="collection-album-info caption">
+            <p>
+                <a class="album-name" ui-sref="album">{{ album.title }}</a>
+                <br/>
+                <a ui-sref="album">{{ album.artist }}</a>
+                <br/>
+                {{ album.songs.length }} songs
+>>>>>>> checkpoint-5
                 <br/>
             </p>
         </div>
     </div>
 </section>
+<<<<<<< HEAD
 >>>>>>> checkpoint-3
+=======
+>>>>>>> checkpoint-5
