@@ -59,7 +59,11 @@
 //        @desc current song object set to null when page loads
 //        @desc publicly clarifies so it's noticable by the album and playerBar templates
 //        @type {Object}
-        SongPlayer.currentSong = null;
+                SongPlayer.currentSong = null;
+
+//        @desc current song volume from 0 to 100
+//        @type {Number}
+                SongPlayer.volume = 75;
 
 
         /**
@@ -121,6 +125,13 @@
             }
         };
         
+        SongPlayer.setVolume = function(volume) {
+                if (currentBuzzObject) {
+                urrentBuzzObject.setVolume(volume);
+                    
+            }
+        }
+
         return SongPlayer;
     }
     
