@@ -1,5 +1,5 @@
 (function() {
-    function SongPlayer($rootScope, Fixtures) {
+    function SongPlayer(Fixtures) {
         var SongPlayer = {};
         
 //        @desc which album is playing, for use in next and previous buttons
@@ -21,12 +21,6 @@
             currentBuzzObject = new buzz.sound(song.audioUrl, {
                 formats: ['mp3'],
                 preload: true
-            });
-
-            currentBuzzObject.bind('timeupdate', function() {
-                $rootScope.$apply(function() {
-                    SongPlayer.currentTime = currentBuzzObject.getTime();
-                });
             });
             
             SongPlayer.currentSong = song;
@@ -65,26 +59,6 @@
 //        @desc publicly clarifies so it's noticable by the album and playerBar templates
 //        @type {Object}
         SongPlayer.currentSong = null;
-
-
-        /**
-        * @desc Current playback time (in seconds) of currently playing song
-        * @type {Number}
-        */
-
-        SongPlayer.currentTime = null;
-
-
-        /**
-        * @function setCurrentTime
-        * @desc Set current time (in seconds) of currently playing song
-        * @param {Number} time
-        */
-        SongPlayer.setCurrentTime = function(time) {
-            if (currentBuzzObject) {
-            currentBuzzObject.setTime(time);
-            }
-         };
         
 //       @function SongPlayer.play(song)
 //        @desc plays a song from the beginning if the song has been played yet and then resumes playing from where it was left off
@@ -127,23 +101,23 @@
         
 //        @function SongPlayer.next
 //        @desc skips to next song, stops music if last song is on
-         SongPlayer.next = function() {
-                var currentSongIndex = getSongIndex(SongPlayer.currentSong);
-                currentSongIndex++;
-            
-                if (currentSongIndex >= currentAlbum.songs.length) {
-                    stopSong();
-                } else {
-                    var song = currentAlbum.songs[currentSongIndex];
-                    setSong(song);
-                    playSong(song);
-                }
-            };
+        SongPlayer.next = function() {
+            var currentSongIndex = getSongIndex(SongPlayer.currentSong);
+            currentSongIndex++;
+        
+            if (currentSongIndex >= currentAlbum.songs.length) {
+                stopSong();
+            } else {
+                var song = currentAlbum.songs[currentSongIndex];
+                setSong(song);
+                playSong(song);
+            }
+        };
 
         return SongPlayer;
     }
     
     angular
         .module('blocJams')
-        .factory('$rootScope','SongPlayer', SongPlayer);
+        .factory('SongPlayer', SongPlayer);
 })();
