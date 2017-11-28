@@ -1,5 +1,5 @@
 (function() {
-    function SongPlayer($rootScope, Fixtures) {
+    function SongPlayer(Fixtures) {
         var SongPlayer = {};
         
 //        @desc which album is playing, for use in next and previous buttons
@@ -15,19 +15,12 @@
 //        @param {Object} song
         var setSong = function(song) {
             if (currentBuzzObject) {
-                currentBuzzObject.stop();
-                SongPlayer.currentSong.playing = null;
+                stopSong();
             }
             
             currentBuzzObject = new buzz.sound(song.audioUrl, {
                 formats: ['mp3'],
                 preload: true
-            });
-
-            currentBuzzObject.bind('timeupdate', function() {
-                $rootScope.$apply(function() {
-                    SongPlayer.currentTime = currentBuzzObject.getTime();
-                });
             });
             
             SongPlayer.currentSong = song;
@@ -48,6 +41,12 @@
             currentBuzzObject.pause();
             song.playing = false;
         }
+
+        var stopSong = function() {
+            currentBuzzObject.stop();
+            SongPlayer.currentSong.playing = null;
+            
+        }
         
 //        @function getSongIndex
 //        @desc gets the song index so it can be changed for next and previous buttons
@@ -59,31 +58,7 @@
 //        @desc current song object set to null when page loads
 //        @desc publicly clarifies so it's noticable by the album and playerBar templates
 //        @type {Object}
-                SongPlayer.currentSong = null;
-
-//        @desc current song volume from 0 to 100
-//        @type {Number}
-                SongPlayer.volume = 75;
-
-
-        /**
-        * @desc Current playback time (in seconds) of currently playing song
-        * @type {Number}
-        */
-
-        SongPlayer.currentTime = null;
-
-
-        /**
-        * @function setCurrentTime
-        * @desc Set current time (in seconds) of currently playing song
-        * @param {Number} time
-        */
-        SongPlayer.setCurrentTime = function(time) {
-            if (currentBuzzObject) {
-            currentBuzzObject.setTime(time);
-            }
-         };
+        SongPlayer.currentSong = null;
         
 //       @function SongPlayer.play(song)
 //        @desc plays a song from the beginning if the song has been played yet and then resumes playing from where it was left off
@@ -116,8 +91,7 @@
             currentSongIndex--;
             
             if (currentSongIndex < 0) {
-                currentBuzzObject.stop();
-                SongPlayer.currentSong.playing = null;
+                stopSong();
             } else {
                 var song = currentAlbum.songs[currentSongIndex];
                 setSong(song);
@@ -125,17 +99,25 @@
             }
         };
         
-        SongPlayer.setVolume = function(volume) {
-                if (currentBuzzObject) {
-                urrentBuzzObject.setVolume(volume);
-                    
+//        @function SongPlayer.next
+//        @desc skips to next song, stops music if last song is on
+        SongPlayer.next = function() {
+            var currentSongIndex = getSongIndex(SongPlayer.currentSong);
+            currentSongIndex++;
+        
+            if (currentSongIndex >= currentAlbum.songs.length) {
+                stopSong();
+            } else {
+                var song = currentAlbum.songs[currentSongIndex];
+                setSong(song);
+                playSong(song);
             }
-        }
+        };
 
         return SongPlayer;
     }
     
     angular
         .module('blocJams')
-        .factory('$rootScope','SongPlayer', SongPlayer);
+        .factory('SongPlayer', SongPlayer);
 })();
